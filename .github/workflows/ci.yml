@@ -53,6 +53,8 @@ jobs:
         run: |
           DEPLOY_SCRIPT=$(cat <<'SCRIPT'
           set -e
+          export HOME=/home/ec2-user
+          
           APP_DIR="/home/ec2-user/aws-devops-cicd-project"
           git config --global --add safe.directory "$APP_DIR"
 

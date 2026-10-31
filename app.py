@@ -1,33 +1,44 @@
+
 from flask import Flask, jsonify
 
 app = Flask(__name__)
 
-@app.get("/")
+@app.route("/")
 def home():
     return """
-    <!doctype html>
-    <html lang="en">
-      <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>DevOps Demo App</title>
-      <style>
-        body{font-family:Arial,sans-serif;max-width:760px;margin:60px auto;padding:0 20px;line-height:1.6;color:#172033}
-        .card{padding:28px;border:1px solid #dbe3ef;border-radius:16px;background:#f7f9fc}
-        code{background:#e8edf5;padding:3px 6px;border-radius:5px}
-      </style></head>
-      <body><div class="card">
-        <h1>🚀 DevOps CI/CD Demo</h1>
-        <p>Your Flask application is running in a Docker container.</p>
-        <p>Pipeline: GitHub → GitHub Actions → Docker → AWS EC2</p>
-        <p>Health endpoint: <a href="/health"><code>/health</code></a></p>
-      </div></body>
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>My Flask Website</title>
+    </head>
+    <body>
+        <h1>Welcome to My Flask Website!</h1>
+        <p>This is the home page. Deployed using Docker and AWS EC2 by GitHub Actions.</p>
+        <a href="/about">Go to About Page</a>
+    </body>
     </html>
     """
 
-@app.get("/health")
+@app.route("/about")
+def about():
+    return """
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>About Page</title>
+    </head>
+    <body>
+        <h1>About My Project</h1>
+        <p>This is an AWS DevOps CI/CD project.</p>
+        <p>Technologies: Python, Flask, Docker, GitHub Actions and AWS EC2.</p>
+        <a href="/">Go to Home Page</a>
+    </body>
+    </html>
+    """
+
+@app.route("/health")
 def health():
     return jsonify(status="healthy"), 200
 
 if __name__ == "__main__":
-    # Bind to all interfaces inside the container. Use a production WSGI server
-    # for production deployments; this simple server is for a learning demo.
     app.run(host="0.0.0.0", port=5000)

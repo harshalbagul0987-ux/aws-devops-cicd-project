@@ -69,7 +69,6 @@ The health endpoint returns:
 
 ## Repository Structure
 
-```text
 aws-devops-cicd-project/
 │
 ├── .github/
@@ -77,12 +76,24 @@ aws-devops-cicd-project/
 │       └── ci.yml
 │
 ├── tests/
-├── app.py
-├── Dockerfile
-├── requirements.txt
+│   └── test_app.py
+│
 ├── .dockerignore
-└── README.md
-```
+├── Dockerfile
+├── README.md
+├── app.py
+└── requirements.txt
+
+## Description
+| File / Folder | Description |
+|---|---|
+| `.github/workflows/` | GitHub Actions CI/CD workflow |
+| `tests/` | Python unit tests |
+| `app.py` | Flask application |
+| `Dockerfile` | Docker image configuration |
+| `.dockerignore` | Excludes unnecessary files |
+| `requirements.txt` | Python dependencies |
+| `README.md` | Project documentation |
 
 ## How to Run Locally
 

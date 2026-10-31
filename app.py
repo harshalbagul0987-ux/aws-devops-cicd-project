@@ -464,12 +464,7 @@ ABOUT = """
       <li>Docker</li>
       <li>AWS account with configured EC2 and IAM permissions</li>
     </ul>
-    <h2 style="margin-top:25px">Explore the source code</h2>
-    <p>Visit the public GitHub repository to inspect the application,
-    Dockerfile, tests and GitHub Actions workflow.</p>
-    <a class="btn" href="{{ repo }}" target="_blank" rel="noopener">
-      Open GitHub Repository ↗
-    </a>
+    
     <p style="margin-top:20px">
       <a class="repo-link" href="/">← Back to Home</a>
     </p>

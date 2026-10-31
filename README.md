@@ -6,13 +6,11 @@ This project demonstrates an automated CI/CD pipeline that builds, tests, contai
 
 It uses GitHub Actions for automation, Docker for containerization, AWS IAM OIDC for secure authentication, and AWS Systems Manager (SSM) to deploy the application without storing long-lived AWS access keys in GitHub.
 
-## Architecture
-
 
 ## Architecture
 
 ```mermaid
-flowchart TD
+flowchart LR
     A[Developer] --> B[GitHub Repository]
     B --> C[GitHub Actions]
     C --> D[Python Unit Tests]

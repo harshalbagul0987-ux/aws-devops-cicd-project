@@ -1,90 +1,170 @@
-# Automated Cloud Deployment Using Docker, GitHub Actions, and AWS EC2
+# AWS DevOps CI/CD Pipeline Using GitHub Actions, Docker and AWS EC2
 
-A beginner-friendly DevOps portfolio project. It packages a small Flask application into Docker, tests it automatically with GitHub Actions, and documents how to run it on AWS EC2.
+## Project Overview
+
+This project demonstrates an automated CI/CD pipeline that builds, tests, containerizes, and deploys a Python Flask application to an AWS EC2 instance.
+
+It uses GitHub Actions for automation, Docker for containerization, AWS IAM OIDC for secure authentication, and AWS Systems Manager (SSM) to deploy the application without storing long-lived AWS access keys in GitHub.
 
 ## Architecture
 
-Developer → GitHub repository → GitHub Actions (tests + Docker build) → AWS EC2 (Docker container)
+Developer → GitHub Repository → GitHub Actions → Python Tests → Docker Build → AWS OIDC Authentication → AWS Systems Manager → EC2 → Running Docker Container
 
-> The included workflow performs continuous integration (tests and image build). The AWS deployment is a separate, manual first deployment so you can learn the server setup safely. Add automated deployment only after the app works on EC2.
+## Technologies Used
 
-## Requirements
+- Python 3.12
+- Flask
+- Git and GitHub
+- GitHub Actions
+- Docker
+- AWS EC2
+- AWS IAM and OIDC
+- AWS Systems Manager (SSM)
+- Linux (Amazon Linux 2023)
 
-- Python 3.12+
-- Git
-- Docker Desktop or Docker Engine
-- GitHub account
-- Optional: AWS account for the cloud deployment section
+## Project Features
 
-## Run locally without Docker
+- Automated testing using GitHub Actions.
+- Automated Docker image build.
+- Secure AWS authentication using OIDC.
+- EC2 deployment through AWS Systems Manager.
+- Docker container execution on EC2.
+- Application health-check endpoint.
+- Automated deployment after code is pushed to the main branch.
+
+## CI/CD Workflow
+
+1. Developer pushes code to the GitHub repository.
+2. GitHub Actions workflow is triggered.
+3. Python dependencies are installed.
+4. Automated unit tests are executed.
+5. Docker image is built.
+6. GitHub Actions authenticates with AWS using OIDC.
+7. AWS Systems Manager sends deployment commands to EC2.
+8. The application is built and started inside a Docker container.
+9. The application health endpoint is checked.
+
+## AWS Configuration
+
+- EC2: Amazon Linux 2023
+- Instance type: t3.micro
+- Region: ap-south-1 (Mumbai)
+- Deployment: AWS Systems Manager
+- Authentication: IAM Role with GitHub OIDC
+- Container port: 5000
+- Public application port: 80
+
+## Application Endpoints
+
+- Home page: `http://EC2-PUBLIC-IP/`
+- Health check: `http://EC2-PUBLIC-IP/health`
+
+The health endpoint returns:
+
+```json
+{
+  "status": "healthy"
+}
+```
+
+## Repository Structure
+
+```text
+aws-devops-cicd-project/
+│
+├── .github/
+│   └── workflows/
+│       └── ci.yml
+│
+├── tests/
+├── app.py
+├── Dockerfile
+├── requirements.txt
+├── .dockerignore
+└── README.md
+```
+
+## How to Run Locally
 
 ```bash
 python -m venv .venv
-# Windows PowerShell:
-.venv\Scripts\Activate.ps1
-# macOS/Linux:
-source .venv/bin/activate
+```
 
+Windows PowerShell:
+
+```powershell
+.venv\Scripts\Activate.ps1
+```
+
+Install dependencies:
+
+```bash
 pip install -r requirements.txt
+```
+
+Run tests:
+
+```bash
 python -m unittest discover -s tests -v
+```
+
+Start application:
+
+```bash
 python app.py
 ```
 
-Open http://127.0.0.1:5000 and http://127.0.0.1:5000/health.
+## Docker Commands
 
-## Build and run with Docker
-
-```bash
-docker build -t devops-demo .
-docker run --rm -p 5000:5000 devops-demo
-```
-
-Open http://localhost:5000. Stop with Ctrl+C.
-
-## Set up GitHub Actions
-
-1. Create a new GitHub repository named `aws-devops-cicd-project`.
-2. Upload or push all project files to the `main` branch.
-3. Open the repository's **Actions** tab.
-4. The workflow in `.github/workflows/ci.yml` runs tests and builds the Docker image on pushes and pull requests to `main`.
-5. Make a small change to `app.py`, commit it, and confirm the workflow passes.
-
-## Deploy to AWS EC2 (learning deployment)
-
-1. In AWS, launch a small Amazon Linux EC2 instance. Review current pricing and Free Tier eligibility before launching; eligibility varies by account and offer.
-2. Create or select a key pair and store the private key securely. Never upload it to GitHub.
-3. In the EC2 security group, allow SSH (TCP 22) only from your own public IP. Allow TCP 5000 from your IP for testing; do not expose it to everyone unnecessarily.
-4. Connect to the instance using the SSH instructions shown by AWS.
-5. Install Docker using the current Amazon Linux documentation for your instance version, then start and enable the Docker service.
-6. Copy the project to the instance using Git or SCP, then run:
+Build image:
 
 ```bash
-docker build -t devops-demo .
-docker run -d --name devops-demo --restart unless-stopped -p 5000:5000 devops-demo
-docker ps
+docker build -t aws-devops-cicd-app .
 ```
 
-7. Visit `http://EC2-PUBLIC-IP:5000` and `http://EC2-PUBLIC-IP:5000/health` while the test port is allowed by your security group.
-8. For a more production-like setup, put Nginx or an Application Load Balancer in front, use HTTPS, restrict inbound access, and use a production WSGI server.
+Run container:
 
-## Security and cost notes
+```bash
+docker run -d --name aws-devops-cicd-container -p 5000:5000 aws-devops-cicd-app
+```
 
-- AWS resources can incur charges. Set a budget alert and terminate the EC2 instance and delete unused resources when finished.
-- Never commit AWS access keys, private SSH keys, passwords, or `.env` files.
-- Do not use root credentials for routine work. Prefer IAM roles and least-privilege permissions.
-- This demo uses Flask's development server; do not treat it as a production deployment.
-- Before opening public access, understand security groups, patching, logs, and HTTPS.
+Open:
 
-## Resume bullet (use only after you complete and test it)
+`http://localhost:5000`
 
-**Built a containerized Flask application and automated CI checks using GitHub Actions; created a repeatable Docker deployment workflow and deployed the app to AWS EC2.**
+## Security Practices
 
-## Interview explanation
+- Used AWS IAM OIDC instead of long-lived AWS access keys.
+- Restricted IAM role trust to the intended GitHub repository and main branch.
+- Used IAM permissions for deployment through SSM.
+- Avoided committing credentials and private keys to GitHub.
+- Restricted EC2 inbound access according to application requirements.
 
-- **Git:** version control for source code.
-- **GitHub Actions:** runs repeatable automated workflow steps after code changes.
-- **CI:** automatically tests and builds the application.
-- **Docker:** packages the app and dependencies into an image.
-- **EC2:** virtual server used to host the container.
-- **Health endpoint:** simple URL that returns the service status.
-- **Next improvement:** publish the image to Amazon ECR and deploy it through a secured workflow using OIDC/IAM rather than long-lived AWS keys.
+## Project Status
+
+Successfully tested and deployed.
+
+- GitHub Actions CI: Passed
+- Python unit tests: Passed
+- Docker image build: Passed
+- AWS OIDC authentication: Passed
+- AWS SSM deployment: Passed
+- EC2 application health check: Passed
+
+## Resume Description
+
+Built an automated AWS DevOps CI/CD pipeline using GitHub Actions, Docker, Python Flask, AWS EC2, IAM OIDC, and Systems Manager. Implemented automated testing, container image builds, secure cloud authentication, and deployment to an EC2 instance.
+
+## Future Improvements
+
+- Push Docker images to Amazon ECR.
+- Add monitoring using Amazon CloudWatch.
+- Configure HTTPS with a domain and TLS certificate.
+- Add automated integration tests.
+- Implement deployment rollback.
+
+## Author
+
+Harshal Bagul
+
+GitHub: https://github.com/harshalbagul0987-ux

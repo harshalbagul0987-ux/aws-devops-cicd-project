@@ -20,7 +20,6 @@ flowchart LR
     G --> H[AWS EC2 Instance]
     H --> I[Docker Container]
     I --> J[Flask Application]
-```
 
 
 ## Technologies Used

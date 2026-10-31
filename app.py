@@ -493,6 +493,106 @@ def about():
 def health():
     return jsonify(status="healthy"), 200
 
+@app.route("/api/status")
+def api_status():
+    return jsonify({
+        "application": "AWS DevOps CI/CD Project",
+        "status": "online",
+        "health": "healthy",
+        "framework": "Flask",
+        "monitoring": "Application health endpoint"
+    }), 200
+
+
+MONITOR = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Monitoring Dashboard</title>
+""" + STYLE + """
+</head>
+<body>
+<nav>
+  <div class="logo">⚡ DevOps Monitoring</div>
+  <div>
+    <a href="/">Home</a>
+    <a href="/about">About</a>
+    <a href="/health">Health</a>
+    <a href="{{ repo }}" target="_blank" rel="noopener">GitHub ↗</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <span class="tag">APPLICATION MONITORING</span>
+  <h1>Live <span class="gradient">Monitoring Dashboard</span></h1>
+  <p>Check your Flask application health and monitoring status.</p>
+</section>
+
+<section>
+  <div class="cards">
+    <div class="card">
+      <h3>Application Status</h3>
+      <p id="appStatus">Checking...</p>
+    </div>
+    <div class="card">
+      <h3>Health Check</h3>
+      <p id="healthStatus">Checking...</p>
+    </div>
+    <div class="card">
+      <h3>Framework</h3>
+      <p>Python Flask</p>
+    </div>
+    <div class="card">
+      <h3>CI/CD Workflow</h3>
+      <p><a class="repo-link" href="{{ repo }}/actions" target="_blank" rel="noopener">View GitHub Actions ↗</a></p>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-top:30px;text-align:center">
+    <h2>Monitoring Controls</h2>
+    <p id="lastUpdated">Not checked yet</p>
+    <button class="btn" onclick="checkStatus()">↻ Refresh Status</button>
+  </div>
+</section>
+
+<footer>AWS DevOps CI/CD Project | Monitoring Dashboard</footer>
+
+<script>
+async function checkStatus() {
+  const appStatus = document.getElementById("appStatus");
+  const healthStatus = document.getElementById("healthStatus");
+  const lastUpdated = document.getElementById("lastUpdated");
+
+  appStatus.textContent = "Checking...";
+  healthStatus.textContent = "Checking...";
+
+  try {
+    const response = await fetch("/api/status", {cache: "no-store"});
+    if (!response.ok) throw new Error("Status check failed");
+
+    const data = await response.json();
+    appStatus.textContent = data.status.toUpperCase();
+    healthStatus.textContent = data.health.toUpperCase();
+    lastUpdated.textContent = "Last checked: " + new Date().toLocaleString();
+  } catch (error) {
+    appStatus.textContent = "OFFLINE / ERROR";
+    healthStatus.textContent = "UNAVAILABLE";
+    lastUpdated.textContent = "Unable to reach application";
+  }
+}
+
+checkStatus();
+</script>
+</body>
+</html>
+"""
+
+
+@app.route("/monitor")
+def monitor():
+    return render_template_string(MONITOR, repo=GITHUB_URL)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)

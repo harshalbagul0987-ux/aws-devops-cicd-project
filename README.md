@@ -41,6 +41,18 @@ flowchart LR
 - AWS Systems Manager (SSM)
 - Linux (Amazon Linux 2023)
 
+ 
+## Project Screenshots
+
+### 1. Live DevOps Application
+
+![Live DevOps Application](application.png)
+
+### 2. Application Health Check
+
+![Application Health Check](health_check.png)
+
+
 ## Project Features
 
 - Automated testing using GitHub Actions.

@@ -248,6 +248,7 @@ HOME = """
   <div>
     <a href="/">Home</a>
     <a href="/about">About</a>
+    <a href="/monitor">Monitor</a>
     <a href="/health">Health</a>
     <a href="{{ repo }}" target="_blank" rel="noopener">GitHub ↗</a>
   </div>
@@ -308,6 +309,7 @@ ABOUT = """
 <nav>
   <div class="logo">⚡ DevOps Project</div>
   <div>
+    <a href="/monitor">Monitor</a>
     <a href="/">Home</a>
     <a href="/about">About</a>
     <a href="/health">Health</a>
@@ -519,6 +521,7 @@ MONITOR = """
   <div>
     <a href="/">Home</a>
     <a href="/about">About</a>
+    <a href="/monitor">Monitor</a>
     <a href="/health">Health</a>
     <a href="{{ repo }}" target="_blank" rel="noopener">GitHub ↗</a>
   </div>

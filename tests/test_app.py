@@ -8,7 +8,7 @@ class AppTests(unittest.TestCase):
     def test_home_page(self):
         response = self.client.get("/")
         self.assertEqual(response.status_code, 200)
-        self.assertIn(b"DevOps CI/CD Demo", response.data)
+        self.assertIn(b"Welcome to My Flask Website!", response.data)
 
     def test_health_endpoint(self):
         response = self.client.get("/health")

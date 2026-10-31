@@ -331,6 +331,41 @@ footer span {
         scroll-behavior: auto !important;
     }
 }
+/* Responsive layout fix */
+html, body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+section {
+    max-width: 100%;
+}
+
+.cards {
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(min(180px, 100%), 1fr)
+    );
+}
+
+@media (max-width: 768px) {
+    .hero {
+        padding: 55px 5%;
+    }
+
+    .hero h1 {
+        font-size: 32px;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    section {
+        padding: 25px 5%;
+    }
+}
 </style>
 </head>
 

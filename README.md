@@ -9,6 +9,11 @@ It uses GitHub Actions for automation, Docker for containerization, AWS IAM OIDC
 
 ## Architecture
 
+
+## Architecture
+
+The CI/CD pipeline starts when a developer pushes code to GitHub. GitHub Actions runs Python tests and builds a Docker image. AWS OIDC provides secure authentication, and AWS SSM deploys the application to EC2.
+
 ```mermaid
 flowchart LR
     A[Developer] --> B[GitHub Repository]
@@ -16,10 +21,12 @@ flowchart LR
     C --> D[Python Unit Tests]
     D --> E[Docker Image Build]
     E --> F[AWS OIDC Authentication]
-    F --> G[AWS Systems Manager SSM]
-    G --> H[AWS EC2 Instance]
+    F --> G[AWS SSM]
+    G --> H[AWS EC2]
     H --> I[Docker Container]
     I --> J[Flask Application]
+```
+
 
 
 ## Technologies Used

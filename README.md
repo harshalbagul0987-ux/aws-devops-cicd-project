@@ -8,7 +8,22 @@ It uses GitHub Actions for automation, Docker for containerization, AWS IAM OIDC
 
 ## Architecture
 
-Developer → GitHub Repository → GitHub Actions → Python Tests → Docker Build → AWS OIDC Authentication → AWS Systems Manager → EC2 → Running Docker Container
+
+## Architecture
+
+```mermaid
+flowchart TD
+    A[Developer] --> B[GitHub Repository]
+    B --> C[GitHub Actions]
+    C --> D[Python Unit Tests]
+    D --> E[Docker Image Build]
+    E --> F[AWS OIDC Authentication]
+    F --> G[AWS Systems Manager SSM]
+    G --> H[AWS EC2 Instance]
+    H --> I[Docker Container]
+    I --> J[Flask Application]
+```
+
 
 ## Technologies Used
 

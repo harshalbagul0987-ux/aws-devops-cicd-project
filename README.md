@@ -218,6 +218,12 @@ This project uses Amazon CloudWatch to monitor the EC2 instance in real time.
 
 Created a custom CloudWatch dashboard named `AWS-DevOps-Monitoring` with the following metrics:
 
+![AWS CloudWatch Dashboard](cloudwatch-dashboard.png)
+
+#### CloudWatch Memory Alarm
+
+![AWS CloudWatch Alarm](cloudwatch-alarm.png)
+
 - **CPU Usage:** Monitors EC2 processor utilization.
 - **Memory Usage:** Tracks memory utilization using the CloudWatch Agent.
 - **Disk Usage:** Monitors disk space utilization.

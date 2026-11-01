@@ -37,17 +37,19 @@ flowchart LR
 - AWS IAM and OIDC
 - AWS Systems Manager (SSM)
 - Linux (Amazon Linux 2023)
+  
 
  
 ## Project Screenshots
 
 ### 1. Live DevOps Application
-
-![Live DevOps Application](application.png)
+![Live DevOps Application](application-home.png)
 
 ### 2. Application Health Check
-
 ![Application Health Check](health_check.png)
+
+### 3. Live Monitoring Dashboard
+![Live Monitoring Dashboard](monitor-dashboard.png)
 
 
 ## Project Features

@@ -9,9 +9,6 @@ It uses GitHub Actions for automation, Docker for containerization, AWS IAM OIDC
 
 ## Architecture
 
-
-## Architecture
-
 The CI/CD pipeline starts when a developer pushes code to GitHub. GitHub Actions runs Python tests and builds a Docker image. AWS OIDC provides secure authentication, and AWS SSM deploys the application to EC2.
 
 ```mermaid
@@ -200,7 +197,7 @@ Built an automated AWS DevOps CI/CD pipeline using GitHub Actions, Docker, Pytho
 ## Future Improvements
 
 - Push Docker images to Amazon ECR.
-- Add monitoring using Amazon CloudWatch.
+- Add advanced monitoring using Amazon CloudWatch alarms and dashboards.
 - Configure HTTPS with a domain and TLS certificate.
 - Add automated integration tests.
 - Implement deployment rollback.
@@ -210,3 +207,35 @@ Built an automated AWS DevOps CI/CD pipeline using GitHub Actions, Docker, Pytho
 Harshal Bagul
 
 GitHub: https://github.com/harshalbagul0987-ux
+
+
+
+## AWS CloudWatch Monitoring
+
+This project uses Amazon CloudWatch to monitor the EC2 instance in real time.
+
+### Monitoring Dashboard
+
+Created a custom CloudWatch dashboard named `AWS-DevOps-Monitoring` with the following metrics:
+
+- **CPU Usage:** Monitors EC2 processor utilization.
+- **Memory Usage:** Tracks memory utilization using the CloudWatch Agent.
+- **Disk Usage:** Monitors disk space utilization.
+- **Combined Metrics:** Displays CPU, memory, and disk metrics in one graph.
+
+### CloudWatch Alarm
+
+- Alarm Name: `DevOps-EC2-Memory-High-80`
+- Metric: `mem_used_percent`
+- Threshold: Greater than 80%
+- Evaluation Period: 5 minutes
+- Notification: Amazon SNS email notification
+
+The alarm sends an email notification when EC2 memory usage exceeds the configured threshold.
+
+### Benefits
+
+- Real-time EC2 resource monitoring.
+- Early detection of high memory usage.
+- Email alerts through Amazon SNS.
+- Centralized monitoring through CloudWatch Dashboard.

@@ -521,7 +521,7 @@ MONITOR = """
   <div>
     <a href="/">Home</a>
     <a href="/about">About</a>
-    <a href="/monitor">Monitor</a>
+    <a href="https://ap-south-1.console.aws.amazon.com/cloudwatch/home?region=ap-south-1#dashboards/dashboard/AWS-DevOps-Monitoring" target="_blank" rel="noopener noreferrer">Monitor</a>
     <a href="/health">Health</a>
     <a href="{{ repo }}" target="_blank" rel="noopener">GitHub ↗</a>
   </div>

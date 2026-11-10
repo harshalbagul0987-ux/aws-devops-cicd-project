@@ -326,21 +326,70 @@ ABOUT = """
 
 <section>
   <div class="panel">
-    <h2>⚡ Project Overview</h2>
-    <p>
-      This project demonstrates an automated AWS DevOps CI/CD pipeline.
-      It tests a Python Flask application, builds a Docker image and
-      deploys the application to an AWS EC2 instance using GitHub Actions
-      and AWS Systems Manager.
-    </p>
-    <p>
-      The workflow uses IAM OIDC federation for GitHub Actions
-      authentication instead of storing long-lived AWS access keys
-      in GitHub repository secrets.
-    </p>
-    <a class="btn" href="{{ repo }}" target="_blank" rel="noopener">
-      View GitHub Repository ↗
-    </a>
+    
+<h2>⚡ Project Overview</h2>
+
+<p>
+This project demonstrates an automated AWS DevOps CI/CD pipeline
+that simplifies application testing, containerization, and deployment.
+</p>
+
+<p>
+The application is developed using Python Flask and deployed
+on an AWS EC2 instance using Docker.
+</p>
+
+<p>
+GitHub Actions automates the complete CI/CD workflow whenever
+new code is pushed to the main branch.
+</p>
+
+<p>
+The pipeline performs automated unit testing to verify
+application functionality before deployment.
+</p>
+
+<p>
+Docker is used to package the application and its dependencies
+into a portable container.
+</p>
+
+<p>
+GitHub Actions securely authenticates with AWS using
+IAM OIDC federation without storing long-lived AWS access keys.
+</p>
+
+<p>
+AWS Systems Manager (SSM) is used to execute deployment
+commands on the EC2 instance.
+</p>
+
+<p>
+Amazon CloudWatch monitors EC2 CPU, memory, and disk usage
+through a custom monitoring dashboard.
+</p>
+
+<p>
+A CloudWatch alarm monitors memory utilization and sends
+email notifications through Amazon SNS when usage exceeds 80%.
+</p>
+
+<p>
+The application also provides a health-check endpoint
+to verify whether the Flask application is running correctly.
+</p>
+
+<p>
+This project demonstrates practical knowledge of Linux,
+Python, Git, GitHub Actions, Docker, AWS EC2, IAM, SSM,
+CloudWatch, and CI/CD automation.
+</p>
+
+<p>
+It provides hands-on experience with cloud deployment,
+infrastructure monitoring, automation, and DevOps practices.
+</p>
+
   </div>
 </section>
 
